@@ -15,11 +15,11 @@ class NsdType {
             var mutTransportLayer = transportLayer.toLowerCase(Locale.getDefault())
 
             if (!protocol.startsWith(PROTOCOL_PREFIX)) {
-                mutProtocol = PROTOCOL_PREFIX + protocol
+                mutProtocol = PROTOCOL_PREFIX + mutProtocol
             }
 
             if (!transportLayer.startsWith(PROTOCOL_PREFIX)) {
-                mutTransportLayer = PROTOCOL_PREFIX + transportLayer
+                mutTransportLayer = PROTOCOL_PREFIX + mutTransportLayer
             }
             return mutProtocol + PROTOCOL_COMBINER + mutTransportLayer
         }
