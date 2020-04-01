@@ -117,7 +117,9 @@ class NsdHelper : OnTimeoutListener {
         val socket: ServerSocket
         return try {
             socket = ServerSocket(0)
-            socket.localPort
+            val port = socket.localPort
+            socket.close()
+            port
         } catch (e: IOException) {
             logError("Couldn't assign port to your service.", 0, "java.net.ServerSocket")
             e.printStackTrace()
