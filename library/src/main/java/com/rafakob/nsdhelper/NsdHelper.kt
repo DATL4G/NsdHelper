@@ -98,7 +98,7 @@ class NsdHelper : OnTimeoutListener {
             isDiscoveryRunning = false
             mDiscoveryTimer.cancel()
             mNsdManager.stopServiceDiscovery(mDiscoveryListener)
-            if (nsdListener != null) nsdListener!!.onNsdDiscoveryFinished()
+            nsdListener?.onNsdDiscoveryFinished()
         }
     }
 
@@ -131,23 +131,23 @@ class NsdHelper : OnTimeoutListener {
         mRegistered = true
         registeredServiceInfo.serviceName = serviceName
         registeredService = NsdService(registeredServiceInfo)
-        if (nsdListener != null) nsdListener!!.onNsdRegistered(registeredService)
+        nsdListener?.onNsdRegistered(registeredService)
     }
 
     fun onNsdServiceFound(foundService: NsdServiceInfo) {
         mDiscoveryTimer.reset()
-        if (nsdListener != null) nsdListener?.onNsdServiceFound(NsdService(foundService))
+        nsdListener?.onNsdServiceFound(NsdService(foundService))
         if (isAutoResolveEnabled) mResolveQueue.enqueue(foundService)
     }
 
     fun onNsdServiceResolved(resolvedService: NsdServiceInfo) {
         mResolveQueue.next()
         mDiscoveryTimer.reset()
-        if (nsdListener != null) nsdListener?.onNsdServiceResolved(NsdService(resolvedService))
+        nsdListener?.onNsdServiceResolved(NsdService(resolvedService))
     }
 
     fun onNsdServiceLost(lostService: NsdServiceInfo) {
-        if (nsdListener != null) nsdListener?.onNsdServiceLost(NsdService(lostService))
+        nsdListener?.onNsdServiceLost(NsdService(lostService))
     }
 
     fun logMsg(msg: String) {
@@ -156,7 +156,7 @@ class NsdHelper : OnTimeoutListener {
 
     fun logError(errorMessage: String?, errorCode: Int, errorSource: String?) {
         Log.e(TAG, errorMessage ?: errorCode.toString())
-        if (nsdListener != null) nsdListener!!.onNsdError(errorMessage, errorCode, errorSource)
+        nsdListener?.onNsdError(errorMessage, errorCode, errorSource)
     }
 
     override fun onNsdDiscoveryTimeout() {
